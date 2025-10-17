@@ -123,7 +123,7 @@ switch(x){
 int main (void){
 int count=0;
 FILE *fp;
-FILE *fp_n;
+FILE *fp_d;
 char str[256];
 char new[256];
     fp=fopen("new.txt","r");
@@ -144,10 +144,6 @@ char new[256];
             
     }
     
-
-    for(int i=0;i<28;i++){
-        probability[i]=(double)counts[i]/count;
-    }
     
     char mem[28]={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',' ','N'};
 
@@ -166,10 +162,18 @@ char new[256];
 			    mem[j+1] = t2;
 		    }
     for(int i=0;i<28;i++)
+	    probability[i]=(double)counts[i]/count;
+    fp_d=fopen("deta.csv","w");
+    if(fp_d==NULL)
+	    printf("file isn't opened\n");
+    else
+	    printf("file is opened\n");
+    for(int i=0;i<28;i++){
 	    printf("%c: %d\n",mem[i],counts[i]);
-
+            fprintf(fp_d,"%d,%c,%d,%f\n",i+1,mem[i],counts[i],probability[i]);
+    }
     fclose(fp);
-    
+    fclose(fp_d);
     
     return 0;
 }
