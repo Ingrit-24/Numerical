@@ -150,17 +150,21 @@ switch(x){
 
 int main (void){
 	FILE *fp;
+	FILE *fp_n;
     char str[256];
 	char mem[28]={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',' ','N'};
     char pea[3];
 
 	int deta_1[784]={0,};
     char deta_2[784][3];
+
 	fp=fopen("new.txt","r");
-    
+    fp_n=fopen("part4.csv","w");
+
 	pea[2]='\0';
-	if(fp==NULL)
+	if(fp==NULL||fp_n==NULL)
 	printf("file error");
+
     
 	while(fgets(str,256,fp)!=NULL){
 		for(int i=0;i<256;i++){
@@ -179,6 +183,7 @@ int main (void){
 	deta_2[count][1]=pea[1];
 	deta_2[count][2]=pea[2];
 	count++;
+	fprintf(fp_n,"%s,%d\n",pea,counts[i][j]);
 }
     for(int i=0;i<784;i++)
 	    for(int j=0;j<784-i;j++)
@@ -196,6 +201,7 @@ int main (void){
 	for(int i=0;i<784;i++)
 	printf("%s %d\n",deta_2[i],deta_1[i]);
     
-    
+    fclose(fp);
+    fclose(fp_n);
 
 }
